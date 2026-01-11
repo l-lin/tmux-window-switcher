@@ -16,8 +16,7 @@ cmd='echo -e "Session name,Window name,Window index\n$(tmux list-windows -a -F '
 eval "${cmd}" \
   | fzf --no-reverse \
     --header-lines 1 \
-    --header 'CR: switch window | C-d: kill window | C-x: kill session'\
+    --header 'CR: switch window | C-x: kill window'\
     --preview 'tmux capture-pane -ep -t {1}:{3}' \
-    --bind "ctrl-d:execute-silent(tmux kill-window -t {1}:{3})+reload(${cmd})" \
-    --bind "ctrl-x:execute-silent(tmux kill-session -t {1})+reload(${cmd})" \
+    --bind "ctrl-x:execute-silent(tmux kill-window -t {1}:{3})+reload(${cmd})" \
     --bind 'enter:execute-silent(tmux switch-client -t {1}:{3})+abort'
